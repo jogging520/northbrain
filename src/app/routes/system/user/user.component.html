@@ -1,0 +1,61 @@
+<page-header #ph [autoTitle]="false" [autoBreadcrumb]="false" >
+  <div class="text-center">
+    <nz-input-group nzSearch nzSize="large" [nzSuffix]="suffixButton" style="width: 520px;">
+      <input type="text" nz-input placeholder="请输入" [(ngModel)]="queryCondition">
+      <ng-template #suffixButton>
+        <button nz-button nzType="primary" nzSize="large" nzSearch (click)="search()">搜索</button>
+      </ng-template>
+    </nz-input-group>
+  </div>
+  <br/>
+  <div>
+    <nz-row [nzGutter]="{ md: 8, lg: 24, xl: 48 }">
+      <nz-col nzMd="8" nzSm="24">
+        <button nz-button nzType="primary" nzSize="large" (click)="createUser()">新建用户</button>
+      </nz-col>
+    </nz-row>
+  </div>
+  <br/>
+
+  <ng-template #tab>
+    <nz-tabset [nzSelectedIndex]="pos">
+      <nz-tab *ngFor="let i of tabs" [nzTitle]="i.tab" (click)="to(i)"></nz-tab>
+    </nz-tabset>
+  </ng-template>
+</page-header>
+<nz-list [nzLoading]="loading" [nzRenderItem]="item" [nzDataSource]="users" [nzGrid]="{gutter: 24, lg: 6, md: 8, sm: 12, xs: 24 }">
+  <ng-template #item let-item>
+    <nz-list-item>
+      <nz-card [nzHoverable]="true" class="ant-card__body-nopadding" [@zoomIn]="zoomIn">
+        <div class="half-float half-float-md">
+          <img src="./assets/tmp/img/half-float-bg-1.jpg">
+          <div class="half-float-bottom rounded-circle bg-grey-lighter">
+            <img class="p-sm" src="{{item.avatar}}">
+          </div>
+        </div>
+        <div class="text-center">
+          <h3 class="h3">{{item.realName}}</h3>
+          <div class="text-grey">Lead director</div>
+          <div class="p-sm">{{item.description}}</div>
+        </div>
+        <div class="text-center bg-grey-darker text-white">
+          <div nz-row>
+            <div nz-col [nzSpan]="8" class="py-sm">
+              <h3 class="text-white mb0">400</h3>
+              <div>Photos</div>
+            </div>
+            <div nz-col [nzSpan]="8" class="py-sm">
+              <h3 class="text-white mb0">2000</h3>
+              <div>Likes</div>
+            </div>
+            <div nz-col [nzSpan]="8" class="py-sm">
+              <h3 class="text-white mb0">500</h3>
+              <div>Following</div>
+            </div>
+          </div>
+        </div>
+      </nz-card>
+    </nz-list-item>
+  </ng-template>
+</nz-list>
+

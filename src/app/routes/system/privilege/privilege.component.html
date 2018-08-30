@@ -1,0 +1,17 @@
+<page-header [autoTitle]="false" [autoBreadcrumb]="false">
+  <app-nb-region
+    [topCode]="'9'"
+    [defaultCode]="'9'"
+    [defaultCenter]="[103.719156, 36.115523]"
+    (code)="onRegionCode($event)"
+    (center)="onRegionCenter($event)">
+  </app-nb-region>
+  <app-nb-organization
+    [topCode]="'EDU9'"
+    [defaultCode]="'EDU9'"
+    (code)="onOrganizationCode($event)">
+  </app-nb-organization>
+</page-header>
+<nz-card class="ant-card__body-nopadding">
+  <ngx-amap class="demo-map" [resizeEnable]="true" [center]="center" [zoom]="11"></ngx-amap>
+</nz-card>

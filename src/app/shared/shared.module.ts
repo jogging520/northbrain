@@ -11,6 +11,8 @@ import { DelonFormModule } from '@delon/form';
 // region: third libs
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
+import { OrganizationComponent } from './general/organization/organization.component';
+import { RegionComponent } from './general/region/region.component';
 const THIRDMODULES = [
   NgZorroAntdModule,
   CountdownModule
@@ -38,7 +40,9 @@ const DIRECTIVES = [];
   declarations: [
     // your components
     ...COMPONENTS,
-    ...DIRECTIVES
+    ...DIRECTIVES,
+    OrganizationComponent,
+    RegionComponent
   ],
   exports: [
     CommonModule,

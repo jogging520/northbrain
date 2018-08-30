@@ -1,0 +1,8 @@
+<nz-cascader
+  nzChangeOnSelect
+  [nzPlaceHolder]="'请选择组织机构'"
+  [nzOptions]="organizationOptions"
+  [(ngModel)]="selectedOrganization"
+  (nzClear)="onClear($event)"
+  (ngModelChange)="onChanges($event)">
+</nz-cascader>

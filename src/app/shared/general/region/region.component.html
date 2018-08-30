@@ -1,0 +1,8 @@
+<nz-cascader
+  nzChangeOnSelect
+  [nzPlaceHolder]="'请选择区域'"
+  [nzOptions]="regionOptions"
+  [(ngModel)]="selectedRegion"
+  (nzClear)="onClear($event)"
+  (ngModelChange)="onChanges($event)">
+</nz-cascader>

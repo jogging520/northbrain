@@ -30,7 +30,9 @@
               "src/styles.less"
             ],
             "scripts": [
-              "node_modules/ajv/dist/ajv.bundle.js"
+              "node_modules/@antv/g2/dist/g2.min.js",
+              "node_modules/ajv/dist/ajv.bundle.js",
+              "src/app/shared/libs/jsencrypt/jsencrypt.js"
             ]
           },
           "configurations": {
@@ -93,7 +95,9 @@
               "src/styles.less"
             ],
             "scripts": [
-              "node_modules/ajv/dist/ajv.bundle.js"
+              "node_modules/@antv/g2/dist/g2.min.js",
+              "node_modules/ajv/dist/ajv.bundle.js",
+              "src/app/shared/libs/jsencrypt/jsencrypt.js"
             ],
             "assets": [
               "src/favicon.ico",
