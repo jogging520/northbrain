@@ -1,17 +1,15 @@
 import { SettingsService } from '@delon/theme';
-import { Component, OnDestroy, Inject, Optional } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import {
   SocialService,
-  SocialOpenType,
-  TokenService,
-  DA_SERVICE_TOKEN,
+  SocialOpenType
 } from '@delon/auth';
-import { ReuseTabService } from '@delon/abc';
 import { environment } from '@env/environment';
-import { StartupService } from '@core/startup/startup.service';
+import {SessionService} from "@shared/services/general/session.service";
+import {CommonService} from "@shared/services/general/common.service";
 
 @Component({
   selector: 'passport-login',
@@ -19,7 +17,7 @@ import { StartupService } from '@core/startup/startup.service';
   styleUrls: ['./login.component.less'],
   providers: [SocialService],
 })
-export class UserLoginComponent implements OnDestroy {
+export class UserLoginComponent implements OnInit, OnDestroy {
   form: FormGroup;
   error = '';
   type = 0;
@@ -32,15 +30,15 @@ export class UserLoginComponent implements OnDestroy {
     private modalSrv: NzModalService,
     private settingsService: SettingsService,
     private socialService: SocialService,
-    @Optional()
-    @Inject(ReuseTabService)
-    private reuseTabService: ReuseTabService,
-    @Inject(DA_SERVICE_TOKEN) private tokenService: TokenService,
-    private startupSrv: StartupService,
+    private sessionService: SessionService,
+    private commonService: CommonService
   ) {
+
+    this.commonService.clear();
+
     this.form = fb.group({
       userName: [null, [Validators.required, Validators.minLength(5)]],
-      password: [null, Validators.required],
+      password: [null, [Validators.required, Validators.minLength(6)]],
       mobile: [null, [Validators.required, Validators.pattern(/^1\d{10}$/)]],
       captcha: [null, [Validators.required]],
       remember: [true],
@@ -48,7 +46,11 @@ export class UserLoginComponent implements OnDestroy {
     modalSrv.closeAll();
   }
 
-  // region: fields
+  ngOnInit(): void {
+
+  }
+
+  // topCode: fields
 
   get userName() {
     return this.form.controls.userName;
@@ -69,7 +71,7 @@ export class UserLoginComponent implements OnDestroy {
     this.type = ret.index;
   }
 
-  // region: get captcha
+  // topCode: get captcha
 
   count = 0;
   interval$: any;
@@ -99,11 +101,16 @@ export class UserLoginComponent implements OnDestroy {
       this.captcha.updateValueAndValidity();
       if (this.mobile.invalid || this.captcha.invalid) return;
     }
-
-    // **注：** DEMO中使用 `setTimeout` 来模拟 http
-    // 默认配置中对所有HTTP请求都会强制[校验](https://ng-alain.com/auth/getting-started) 用户 Token
-    // 然一般来说登录请求不需要校验，因此可以在请求URL加上：`/login?_allow_anonymous=true` 表示不触发用户 Token 校验
+    // mock http
     this.loading = true;
+
+    this.sessionService
+      .login(this.userName.value, this.password.value, this.mobile.value);
+
+    this.resetForm();
+
+    //this.loading = false;
+    /*
     setTimeout(() => {
       this.loading = false;
       if (this.type === 0) {
@@ -131,9 +138,19 @@ export class UserLoginComponent implements OnDestroy {
       // 否则直接跳转
       this.router.navigate(['/']);
     }, 1000);
+    */
   }
 
-  // region: social
+  private resetForm(): void {
+    this.form.reset();
+
+    for (const key in this.form.controls) {
+      this.form.controls[key].markAsPristine();
+      this.form.controls[key].updateValueAndValidity();
+    }
+  }
+
+  // topCode: social
 
   open(type: string, openType: SocialOpenType = 'href') {
     let url = ``;

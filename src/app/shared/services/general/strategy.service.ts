@@ -16,14 +16,13 @@ export class StrategyService {
     private commonService: CommonService
   ) { }
 
-  public queryStrategies(type: string): Observable<Strategy>{
+  public queryStrategies(types: string[]): Observable<Strategy[]>{
     return this.httpClient
-      .get(`${environment.serverUrl}strategies\\${type}`,
-        this.commonService.setParams({}),
+      .get(`${environment.serverUrl}strategies`,
+        this.commonService.setParams({types: types}),
         {headers: CommonService.setHeaders()}
       )
       .pipe(
-        flatMap((strategy: any) => strategy),
         catchError(error => this.commonService.handleError(error))
       );
   }

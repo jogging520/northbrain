@@ -27,15 +27,17 @@ export class OperationResolver implements Resolve<any> {
     const tokenData = this.tokenService.get();
 
     return forkJoin(
-      this.strategyService.queryStrategies('appTypes'),
-      this.strategyService.queryStrategies('businessTypes'),
+      this.strategyService.queryStrategies(['appTypes', 'businessTypes']),
       this.userService.queryUsers()
     )
       .pipe(
         map((data) => {
-          let originalAppTypes: Strategy = data[0];
-          let originalBusinessTypes: Strategy = data[1];
-          let originalUsers: User[] = data[2];
+          console.log(data);
+
+          let strategies: Strategy[] = data[0];
+          let originalAppTypes: Strategy = strategies[0];
+          let originalBusinessTypes: Strategy = strategies[1];
+          let originalUsers: User[] = data[1];
           let operationParams = {channelTypes: [], businessTypes: [], users: []};
 
           if (originalAppTypes.status === 'ACTIVE' && originalAppTypes.parameters) {

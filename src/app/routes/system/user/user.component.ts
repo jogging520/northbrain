@@ -11,16 +11,17 @@ import {Region} from "@shared/models/general/region";
 import {transition, trigger, useAnimation} from "@angular/animations";
 // import {flip, jackInTheBox, tada, zoomIn} from "ngx-animate/lib";
 import {CacheService} from "@delon/cache";
+import {zoomIn} from "ngx-animate/lib";
 
 @Component({
   selector: 'app-system-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.less'],
-  // animations: [
-  //   trigger('zoomIn', [transition('* => *', useAnimation(zoomIn,
-  //     {params: { timing: 2, delay: 0 }
-  //     }))])
-  // ],
+   animations: [
+     trigger('zoomIn', [transition('* => *', useAnimation(zoomIn,
+       {params: { timing: 2, delay: 0 }
+       }))])
+   ],
 })
 export class SystemUserComponent implements OnInit {
   q: any = {

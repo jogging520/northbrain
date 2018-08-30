@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { RoutesModule } from './routes/routes.module';
 import { LayoutModule } from './layout/layout.module';
 import { StartupService } from '@core/startup/startup.service';
-import { DefaultInterceptor } from '@core/net/default.interceptor';
 import { SimpleInterceptor } from '@delon/auth';
 // angular i18n
 import { registerLocaleData } from '@angular/common';
@@ -42,6 +41,7 @@ export function StartupServiceFactory(startupService: StartupService): Function 
   providers: [
     { provide: LOCALE_ID, useValue: 'zh-Hans' },
     { provide: HTTP_INTERCEPTORS, useClass: SimpleInterceptor, multi: true},
+    StartupService,
     {
       provide: APP_INITIALIZER,
       useFactory: StartupServiceFactory,

@@ -13,6 +13,8 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
 import { OrganizationComponent } from './general/organization/organization.component';
 import { RegionComponent } from './general/region/region.component';
+import { NgxAmapModule } from 'ngx-amap';
+
 const THIRDMODULES = [
   NgZorroAntdModule,
   CountdownModule
@@ -20,7 +22,7 @@ const THIRDMODULES = [
 // endregion
 
 // region: your componets & directives
-const COMPONENTS = [];
+const COMPONENTS = [RegionComponent, OrganizationComponent];
 const DIRECTIVES = [];
 // endregion
 
@@ -35,14 +37,15 @@ const DIRECTIVES = [];
     DelonACLModule,
     DelonFormModule,
     // third libs
+    NgxAmapModule.forRoot({
+      apiKey: '1d54cf0e4dac3ed6da30cbad7627dcdd'
+    }),
     ...THIRDMODULES
   ],
   declarations: [
     // your components
     ...COMPONENTS,
-    ...DIRECTIVES,
-    OrganizationComponent,
-    RegionComponent
+    ...DIRECTIVES
   ],
   exports: [
     CommonModule,
@@ -54,6 +57,7 @@ const DIRECTIVES = [];
     DelonACLModule,
     DelonFormModule,
     // third libs
+    NgxAmapModule,
     ...THIRDMODULES,
     // your components
     ...COMPONENTS,

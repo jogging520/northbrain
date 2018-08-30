@@ -6,8 +6,8 @@ import {Operation} from "@shared/models/general/operation";
 import {NzMessageService} from "ng-zorro-antd";
 import {tap, map} from "rxjs/operators";
 import {CommonService} from "@shared/services/general/common.service";
-import {SystemOperationViewComponent} from "./view/OperationView.component";
 import {ActivatedRoute} from "@angular/router";
+import {SystemOperationViewComponent} from "./view/view.component";
 
 @Component({
   selector: 'app-system-operation',
@@ -34,6 +34,7 @@ export class SystemOperationComponent implements OnInit {
     { title: '操作人员',
       index: 'user',
       format: (operation: Operation) => {  //format????
+
         let formattedUser = '';
 
         this.users
@@ -158,5 +159,10 @@ export class SystemOperationComponent implements OnInit {
   private onCreateTimeChange(event: any): void {
     this.conditions.fromCreateTime = event[0];
     this.conditions.toCreateTime = event[1];
+  }
+
+  private onModelChange(event: any): void {
+    console.log(event);
+    console.log(this.conditions);
   }
 }

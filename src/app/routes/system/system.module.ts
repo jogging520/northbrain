@@ -4,14 +4,15 @@ import { SystemRoutingModule } from './system-routing.module';
 import { SystemOperationComponent } from './operation/operation.component';
 import { SystemUserComponent } from './user/user.component';
 import { SystemPrivilegeComponent } from './privilege/privilege.component';
-import { SystemViewComponent } from './operation/view/OperationView.component';
+import { SystemOperationViewComponent } from './operation/view/view.component';
 
 const COMPONENTS = [
   SystemOperationComponent,
   SystemUserComponent,
-  SystemPrivilegeComponent,
-  SystemViewComponent];
-const COMPONENTS_NOROUNT = [];
+  SystemPrivilegeComponent
+];
+const COMPONENTS_NOROUNT = [
+  SystemOperationViewComponent];
 
 @NgModule({
   imports: [

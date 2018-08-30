@@ -4,7 +4,7 @@ import { _HttpClient } from '@delon/theme';
 
 @Component({
   selector: 'app-system-operation-view',
-  templateUrl: './OperationView.html',
+  templateUrl: './view.component.html',
 })
 export class SystemOperationViewComponent implements OnInit {
   record: any = {};
